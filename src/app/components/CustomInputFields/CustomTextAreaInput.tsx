@@ -1,12 +1,38 @@
 import { textInput } from "@/utils/type";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const CustomTextAreaInput = ({ fieldData }: { fieldData: textInput }) => {
+const CustomTextAreaInput = ({
+  fieldData,
+  handleMultipleData,
+}: {
+  fieldData: textInput;
+  handleMultipleData: (data: any) => void;
+}) => {
+  const [data, setData] = useState<string>("");
+
   const { fieldName, value } = fieldData;
+
+  useEffect(() => {
+    setData(value);
+    handleMultipleData({ [fieldName]: value });
+  }, [value]);
+
+  const handleFieldData = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { value, name } = e.target;
+    setData(value);
+    handleMultipleData({ [name]: value });
+  };
+
   return (
     <div className="field_holder">
       <label className="label_style">{fieldName}</label>
-      <textarea value={value} className="input_field" rows={5} />
+      <textarea
+        value={data}
+        className="input_field"
+        rows={5}
+        name={fieldName}
+        onChange={(e) => handleFieldData(e)}
+      />
     </div>
   );
 };

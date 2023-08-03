@@ -25,3 +25,6 @@ export interface selectInput {
   value: string;
   options: string[];
 }
+export interface DynamicState {
+  [key: string]: number | string;
+}
