@@ -12,3 +12,16 @@ export interface ResponseObject {
   message: string;
   data: ResponseData[];
 }
+
+export interface textInput {
+  fieldName: string;
+  type: string;
+  value: string;
+}
+
+export interface selectInput {
+  fieldName: string;
+  type: string;
+  value: string;
+  options: string[];
+}
