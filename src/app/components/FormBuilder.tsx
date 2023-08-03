@@ -8,8 +8,34 @@ import CustomTextAreaInput from "./CustomInputFields/CustomTextAreaInput";
 const FormBuilder = ({ fields }: { fields: ResponseObject | null }) => {
   const [submitData, setSubmitData] = useState<DynamicState>({});
 
+  const [resultData, setResultData] = useState<String>("");
+
   const handleMultipleData = (object: DynamicState) => {
     setSubmitData((prev) => ({ ...prev, ...object }));
+  };
+
+  const handleSubmitData = () => {
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(submitData),
+    };
+
+    fetch("https://ulventech-react-exam.netlify.app/api/form", requestOptions)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setResultData(JSON.stringify(data));
+      })
+      .catch((error) => {
+        setResultData(`Error : ${error.message}`);
+      });
   };
 
   return (
@@ -36,8 +62,12 @@ const FormBuilder = ({ fields }: { fields: ResponseObject | null }) => {
         : ""}
 
       {fields?.data?.length && (
-        <button className="submit_button">Submit</button>
+        <button className="submit_button" onClick={handleSubmitData}>
+          Submit
+        </button>
       )}
+
+      <p className="result_data">{resultData}</p>
     </div>
   );
 };
