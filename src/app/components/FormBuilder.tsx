@@ -31,7 +31,7 @@ const FormBuilder = ({
       body: JSON.stringify(submitData),
     };
 
-    fetch("https://ulventech-react-exam.netlify.app/api/form", requestOptions)
+    fetch(process.env.NEXT_PUBLIC_BACKEND_URL || "", requestOptions)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");

@@ -10,7 +10,7 @@ import Toolbar from "@mui/material/Toolbar";
 
 const MainFormComponent = () => {
   const { fields, isLoading, error } = useGetFormFields(
-    "https://ulventech-react-exam.netlify.app/api/form"
+    process.env.NEXT_PUBLIC_BACKEND_URL || ""
   );
 
   if (isLoading) return "Loading...";
