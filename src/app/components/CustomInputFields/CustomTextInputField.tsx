@@ -1,5 +1,7 @@
-import { textInput } from "@/utils/type";
 import React, { useEffect, useState } from "react";
+import { textInput } from "@/utils/type";
+import { TextField } from "@mui/material";
+import FormControl from "@mui/material/FormControl";
 
 const CustomTextInputField = ({
   fieldData,
@@ -25,14 +27,16 @@ const CustomTextInputField = ({
 
   return (
     <div className="field_holder">
-      <label className="label_style">{fieldName}</label>
-      <input
-        type={type}
-        value={data}
-        className="input_field"
-        name={fieldName}
-        onChange={(e) => handleFieldData(e)}
-      />
+      <FormControl fullWidth>
+        <TextField
+          type={type}
+          color="secondary"
+          value={data}
+          name={fieldName}
+          onChange={handleFieldData}
+          label={fieldName.toUpperCase()}
+        />
+      </FormControl>
     </div>
   );
 };

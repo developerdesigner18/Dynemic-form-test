@@ -1,5 +1,9 @@
 import { selectInput } from "@/utils/type";
 import React, { useEffect, useState } from "react";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 const CustomSelectInput = ({
   fieldData,
@@ -17,7 +21,7 @@ const CustomSelectInput = ({
     handleMultipleData({ [fieldName]: value });
   }, [value]);
 
-  const handleFieldData = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleFieldData = (e: SelectChangeEvent) => {
     const { value, name } = e.target;
     setData(value);
     handleMultipleData({ [name]: value });
@@ -25,17 +29,21 @@ const CustomSelectInput = ({
 
   return (
     <div className="field_holder">
-      <label className="label_style">{fieldName}</label>
-      <select
-        value={data}
-        className="input_field"
-        name={fieldName}
-        onChange={(e) => handleFieldData(e)}
-      >
-        {options.map((opt) => (
-          <option value={opt}>{opt}</option>
-        ))}
-      </select>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">
+          {fieldName.toUpperCase()}
+        </InputLabel>
+        <Select
+          value={data}
+          label={fieldName.toUpperCase()}
+          onChange={handleFieldData}
+          color="secondary"
+        >
+          {options.map((opt) => (
+            <MenuItem value={opt}>{opt}</MenuItem>
+          ))}
+        </Select>
+      </FormControl>
     </div>
   );
 };

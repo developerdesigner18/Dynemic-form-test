@@ -5,7 +5,15 @@ import CustomTextInputField from "./CustomInputFields/CustomTextInputField";
 import CustomSelectInput from "./CustomInputFields/CustomSelectInput";
 import CustomTextAreaInput from "./CustomInputFields/CustomTextAreaInput";
 
-const FormBuilder = ({ fields }: { fields: ResponseObject | null }) => {
+import Button from "@mui/material/Button";
+
+const FormBuilder = ({
+  fields,
+  isLoading,
+}: {
+  fields: ResponseObject | null;
+  isLoading: boolean;
+}) => {
   const [submitData, setSubmitData] = useState<DynamicState>({});
 
   const [resultData, setResultData] = useState<String>("");
@@ -62,12 +70,22 @@ const FormBuilder = ({ fields }: { fields: ResponseObject | null }) => {
         : ""}
 
       {fields?.data?.length && (
-        <button className="submit_button" onClick={handleSubmitData}>
+        <Button
+          onClick={handleSubmitData}
+          disabled={isLoading}
+          color="secondary"
+          variant="contained"
+          sx={{ display: "block", margin: "auto" }}
+        >
           Submit
-        </button>
+        </Button>
       )}
 
-      <p className="result_data">{resultData}</p>
+      {resultData !== "" && (
+        <p className="result_data">
+          RESPONSE: <br /> {resultData}
+        </p>
+      )}
     </div>
   );
 };

@@ -1,5 +1,7 @@
 import { textInput } from "@/utils/type";
 import React, { useEffect, useState } from "react";
+import { TextField } from "@mui/material";
+import FormControl from "@mui/material/FormControl";
 
 const CustomTextAreaInput = ({
   fieldData,
@@ -25,14 +27,17 @@ const CustomTextAreaInput = ({
 
   return (
     <div className="field_holder">
-      <label className="label_style">{fieldName}</label>
-      <textarea
-        value={data}
-        className="input_field"
-        rows={5}
-        name={fieldName}
-        onChange={(e) => handleFieldData(e)}
-      />
+      <FormControl fullWidth>
+        <TextField
+          label={fieldName.toUpperCase()}
+          multiline
+          rows={5}
+          value={data}
+          name={fieldName}
+          color="secondary"
+          onChange={handleFieldData}
+        />
+      </FormControl>
     </div>
   );
 };

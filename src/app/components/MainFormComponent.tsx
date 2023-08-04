@@ -1,7 +1,12 @@
 "use client";
 import React from "react";
+
 import { useGetFormFields } from "@/hooks/useGetFormFields";
+
 import FormBuilder from "./FormBuilder";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
 
 const MainFormComponent = () => {
   const { fields, isLoading, error } = useGetFormFields(
@@ -12,8 +17,13 @@ const MainFormComponent = () => {
   if (error) return "Please try Again later...";
   return (
     <div className="main_container">
-      <h1 className="project_heading">Dynamic Form</h1>
-      <FormBuilder fields={fields} />
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static" color="secondary">
+          <Toolbar></Toolbar>
+        </AppBar>
+      </Box>
+      <p className="project_heading">Dynamic Form</p>
+      <FormBuilder fields={fields} isLoading={isLoading} />
     </div>
   );
 };
